@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DbModelStoreContainer">
+    <EntitySet Name="ComponentsSet" EntityType="DbModel.Store.ComponentsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Units_of_measureSet" EntityType="DbModel.Store.Units_of_measureSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Recipe_headerSet" EntityType="DbModel.Store.Recipe_headerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Recipe_componentsSet" EntityType="DbModel.Store.Recipe_componentsSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="Recipe_headerRecipe_components" Association="DbModel.Store.Recipe_headerRecipe_components">
+      <End Role="Recipe_header" EntitySet="Recipe_headerSet" />
+      <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+    </AssociationSet>
+    <AssociationSet Name="Recipe_componentsComponents" Association="DbModel.Store.Recipe_componentsComponents">
+      <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+      <End Role="Components" EntitySet="ComponentsSet" />
+    </AssociationSet>
+    <AssociationSet Name="Units_of_measureRecipe_components" Association="DbModel.Store.Units_of_measureRecipe_components">
+      <End Role="Units_of_measure" EntitySet="Units_of_measureSet" />
+      <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ComponentsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Units_of_measureSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Full_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Short_name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Recipe_headerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Quantity_of_portions" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Prepare_time" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description_of_prepare" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Recipe_componentsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantity" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id_recipe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_component" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_unit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="Recipe_headerRecipe_components">
+    <End Role="Recipe_header" Type="DbModel.Store.Recipe_headerSet" Multiplicity="1" />
+    <End Role="Recipe_components" Type="DbModel.Store.Recipe_componentsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipe_header">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Recipe_components">
+        <PropertyRef Name="Id_recipe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Recipe_componentsComponents">
+    <End Role="Recipe_components" Type="DbModel.Store.Recipe_componentsSet" Multiplicity="*" />
+    <End Role="Components" Type="DbModel.Store.ComponentsSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Components">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Recipe_components">
+        <PropertyRef Name="Id_component" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Units_of_measureRecipe_components">
+    <End Role="Units_of_measure" Type="DbModel.Store.Units_of_measureSet" Multiplicity="1" />
+    <End Role="Recipe_components" Type="DbModel.Store.Recipe_componentsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Units_of_measure">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Recipe_components">
+        <PropertyRef Name="Id_unit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DbModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ComponentsSet" EntityType="DbModel.Components" />
+          <EntitySet Name="Units_of_measureSet" EntityType="DbModel.Units_of_measure" />
+          <EntitySet Name="Recipe_headerSet" EntityType="DbModel.Recipe_header" />
+          <EntitySet Name="Recipe_componentsSet" EntityType="DbModel.Recipe_components" />
+          <AssociationSet Name="Recipe_headerRecipe_components" Association="DbModel.Recipe_headerRecipe_components">
+            <End Role="Recipe_header" EntitySet="Recipe_headerSet" />
+            <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+          </AssociationSet>
+          <AssociationSet Name="Recipe_componentsComponents" Association="DbModel.Recipe_componentsComponents">
+            <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+            <End Role="Components" EntitySet="ComponentsSet" />
+          </AssociationSet>
+          <AssociationSet Name="Units_of_measureRecipe_components" Association="DbModel.Units_of_measureRecipe_components">
+            <End Role="Units_of_measure" EntitySet="Units_of_measureSet" />
+            <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Components">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" />
+          <NavigationProperty Name="Recipe_components" Relationship="DbModel.Recipe_componentsComponents" FromRole="Components" ToRole="Recipe_components" />
+        </EntityType>
+        <EntityType Name="Units_of_measure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Full_name" Type="String" Nullable="false" />
+          <Property Name="Short_name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Recipe_components" Relationship="DbModel.Units_of_measureRecipe_components" FromRole="Units_of_measure" ToRole="Recipe_components" />
+        </EntityType>
+        <EntityType Name="Recipe_header">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Quantity_of_portions" Type="String" Nullable="false" />
+          <Property Name="Prepare_time" Type="String" Nullable="false" />
+          <Property Name="Description_of_prepare" Type="String" Nullable="false" />
+          <NavigationProperty Name="Recipe_components" Relationship="DbModel.Recipe_headerRecipe_components" FromRole="Recipe_header" ToRole="Recipe_components" />
+        </EntityType>
+        <EntityType Name="Recipe_components">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" annotation:StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantity" Type="String" Nullable="false" />
+          <Property Name="Id_recipe" Type="Int32" annotation:StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_component" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_unit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Recipe_header" Relationship="DbModel.Recipe_headerRecipe_components" FromRole="Recipe_components" ToRole="Recipe_header" />
+          <NavigationProperty Name="Components" Relationship="DbModel.Recipe_componentsComponents" FromRole="Recipe_components" ToRole="Components" />
+          <NavigationProperty Name="Units_of_measure" Relationship="DbModel.Units_of_measureRecipe_components" FromRole="Recipe_components" ToRole="Units_of_measure" />
+        </EntityType>
+        <Association Name="Recipe_headerRecipe_components">
+          <End Type="DbModel.Recipe_header" Role="Recipe_header" Multiplicity="1" />
+          <End Type="DbModel.Recipe_components" Role="Recipe_components" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe_header">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recipe_components">
+              <PropertyRef Name="Id_recipe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Recipe_componentsComponents">
+          <End Type="DbModel.Recipe_components" Role="Recipe_components" Multiplicity="*" />
+          <End Type="DbModel.Components" Role="Components" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Components">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recipe_components">
+              <PropertyRef Name="Id_component" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Units_of_measureRecipe_components">
+          <End Type="DbModel.Units_of_measure" Role="Units_of_measure" Multiplicity="1" />
+          <End Type="DbModel.Recipe_components" Role="Recipe_components" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units_of_measure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recipe_components">
+              <PropertyRef Name="Id_unit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DbModelContainer">
+    <EntitySetMapping Name="ComponentsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Components)">
+        <MappingFragment StoreEntitySet="ComponentsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Units_of_measureSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Units_of_measure)">
+        <MappingFragment StoreEntitySet="Units_of_measureSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Full_name" ColumnName="Full_name" />
+          <ScalarProperty Name="Short_name" ColumnName="Short_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recipe_headerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Recipe_header)">
+        <MappingFragment StoreEntitySet="Recipe_headerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Quantity_of_portions" ColumnName="Quantity_of_portions" />
+          <ScalarProperty Name="Prepare_time" ColumnName="Prepare_time" />
+          <ScalarProperty Name="Description_of_prepare" ColumnName="Description_of_prepare" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recipe_componentsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Recipe_components)">
+        <MappingFragment StoreEntitySet="Recipe_componentsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Id_recipe" ColumnName="Id_recipe" />
+          <ScalarProperty Name="Id_component" ColumnName="Id_component" />
+          <ScalarProperty Name="Id_unit" ColumnName="Id_unit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
