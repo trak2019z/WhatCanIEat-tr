@@ -29,5 +29,7 @@ namespace WhatCanIEat.Models.Database
         public DbSet<Units_of_measure> Units_of_measureSet { get; set; }
         public DbSet<Recipe_header> Recipe_headerSet { get; set; }
         public DbSet<Recipe_components> Recipe_componentsSet { get; set; }
+        public DbSet<Users> Users { get; set; }
+        public DbSet<Categories> Categories { get; set; }
     }
 }

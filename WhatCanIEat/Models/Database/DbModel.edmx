@@ -10,6 +10,8 @@
     <EntitySet Name="Units_of_measureSet" EntityType="DbModel.Store.Units_of_measureSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Recipe_headerSet" EntityType="DbModel.Store.Recipe_headerSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Recipe_componentsSet" EntityType="DbModel.Store.Recipe_componentsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="DbModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Categories" EntityType="DbModel.Store.Categories" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="Recipe_headerRecipe_components" Association="DbModel.Store.Recipe_headerRecipe_components">
       <End Role="Recipe_header" EntitySet="Recipe_headerSet" />
       <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
@@ -21,6 +23,10 @@
     <AssociationSet Name="Units_of_measureRecipe_components" Association="DbModel.Store.Units_of_measureRecipe_components">
       <End Role="Units_of_measure" EntitySet="Units_of_measureSet" />
       <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+    </AssociationSet>
+    <AssociationSet Name="Recipe_headerCategories" Association="DbModel.Store.Recipe_headerCategories">
+      <End Role="Recipe_header" EntitySet="Recipe_headerSet" />
+      <End Role="Categories" EntitySet="Categories" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="ComponentsSet">
@@ -48,6 +54,7 @@
     <Property Name="Quantity_of_portions" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Prepare_time" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description_of_prepare" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IdCategories" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Recipe_componentsSet">
     <Key>
@@ -58,6 +65,22 @@
     <Property Name="Id_recipe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Id_component" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Id_unit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="Recipe_headerRecipe_components">
     <End Role="Recipe_header" Type="DbModel.Store.Recipe_headerSet" Multiplicity="1" />
@@ -95,6 +118,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="Recipe_headerCategories">
+    <End Role="Recipe_header" Type="DbModel.Store.Recipe_headerSet" Multiplicity="*" />
+    <End Role="Categories" Type="DbModel.Store.Categories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Recipe_header">
+        <PropertyRef Name="IdCategories" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -115,6 +150,12 @@
           <AssociationSet Name="Units_of_measureRecipe_components" Association="DbModel.Units_of_measureRecipe_components">
             <End Role="Units_of_measure" EntitySet="Units_of_measureSet" />
             <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="DbModel.Users" />
+          <EntitySet Name="Categories" EntityType="DbModel.Categories" />
+          <AssociationSet Name="Recipe_headerCategories" Association="DbModel.Recipe_headerCategories">
+            <End Role="Recipe_header" EntitySet="Recipe_headerSet" />
+            <End Role="Categories" EntitySet="Categories" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Components">
@@ -145,6 +186,8 @@
           <Property Name="Prepare_time" Type="String" Nullable="false" />
           <Property Name="Description_of_prepare" Type="String" Nullable="false" />
           <NavigationProperty Name="Recipe_components" Relationship="DbModel.Recipe_headerRecipe_components" FromRole="Recipe_header" ToRole="Recipe_components" />
+          <Property Name="IdCategories" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categories" Relationship="DbModel.Recipe_headerCategories" FromRole="Recipe_header" ToRole="Categories" />
         </EntityType>
         <EntityType Name="Recipe_components">
           <Key>
@@ -195,6 +238,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Recipe_header" Relationship="DbModel.Recipe_headerCategories" FromRole="Categories" ToRole="Recipe_header" />
+        </EntityType>
+        <Association Name="Recipe_headerCategories">
+          <End Type="DbModel.Recipe_header" Role="Recipe_header" Multiplicity="*" />
+          <End Type="DbModel.Categories" Role="Categories" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recipe_header">
+              <PropertyRef Name="IdCategories" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -227,6 +299,7 @@
           <ScalarProperty Name="Quantity_of_portions" ColumnName="Quantity_of_portions" />
           <ScalarProperty Name="Prepare_time" ColumnName="Prepare_time" />
           <ScalarProperty Name="Description_of_prepare" ColumnName="Description_of_prepare" />
+          <ScalarProperty Name="IdCategories" ColumnName="IdCategories" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -238,6 +311,24 @@
           <ScalarProperty Name="Id_recipe" ColumnName="Id_recipe" />
           <ScalarProperty Name="Id_component" ColumnName="Id_component" />
           <ScalarProperty Name="Id_unit" ColumnName="Id_unit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Users)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Categories)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

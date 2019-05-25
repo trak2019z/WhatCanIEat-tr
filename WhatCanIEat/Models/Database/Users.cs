@@ -12,22 +12,11 @@ namespace WhatCanIEat.Models.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Recipe_header
+    public partial class Users
     {
-        public Recipe_header()
-        {
-            this.Recipe_components = new HashSet<Recipe_components>();
-        }
-    
         public int Id { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string Quantity_of_portions { get; set; }
-        public string Prepare_time { get; set; }
-        public string Description_of_prepare { get; set; }
-        public int IdCategories { get; set; }
-    
-        public virtual ICollection<Recipe_components> Recipe_components { get; set; }
-        public virtual Categories Categories { get; set; }
     }
 }

@@ -5,13 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6d5119b0588348bb998c74ccf56a4e88" Name="Diagram1" >
-        <EntityTypeShape EntityType="DbModel.Components" Width="1.5" PointX="7.625" PointY="1" />
-        <EntityTypeShape EntityType="DbModel.Units_of_measure" Width="1.5" PointX="7.625" PointY="3.125" />
-        <EntityTypeShape EntityType="DbModel.Recipe_header" Width="1.5" PointX="1.5" PointY="1.125" />
-        <EntityTypeShape EntityType="DbModel.Recipe_components" Width="1.5" PointX="4.875" PointY="1" />
+        <EntityTypeShape EntityType="DbModel.Components" Width="1.5" PointX="8.25" PointY="0.5" />
+        <EntityTypeShape EntityType="DbModel.Units_of_measure" Width="1.5" PointX="8.375" PointY="2.25" />
+        <EntityTypeShape EntityType="DbModel.Recipe_header" Width="1.5" PointX="3.125" PointY="0.5" />
+        <EntityTypeShape EntityType="DbModel.Recipe_components" Width="1.5" PointX="6" PointY="0.5" />
         <AssociationConnector Association="DbModel.Recipe_headerRecipe_components" />
         <AssociationConnector Association="DbModel.Recipe_componentsComponents" />
         <AssociationConnector Association="DbModel.Units_of_measureRecipe_components" />
+        <EntityTypeShape EntityType="DbModel.Users" Width="1.5" PointX="0.625" PointY="0.5" />
+        <EntityTypeShape EntityType="DbModel.Categories" Width="1.5" PointX="5.375" PointY="3.75" />
+        <AssociationConnector Association="DbModel.Recipe_headerCategories" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
