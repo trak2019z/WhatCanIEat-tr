@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/28/2019 20:08:20
--- Generated from EDMX file: C:\Users\albert-virtual\Source\Repos\WhatCanIEat\WhatCanIEat\Models\Database\DbModel.edmx
+-- Date Created: 05/28/2019 21:13:31
+-- Generated from EDMX file: D:\Projekty C#\WhatCanIEat\WhatCanIEat\Models\Database\DbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -32,6 +32,15 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UsersRecipe_header]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Recipe_header] DROP CONSTRAINT [FK_UsersRecipe_header];
 GO
+IF OBJECT_ID(N'[dbo].[FK_PermissionUsers]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_PermissionUsers];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CommentsRecipe_header]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_CommentsRecipe_header];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UsersComments]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_UsersComments];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -54,6 +63,12 @@ IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Categories]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Categories];
+GO
+IF OBJECT_ID(N'[dbo].[Permission]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Permission];
+GO
+IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Comments];
 GO
 
 -- --------------------------------------------------
@@ -83,7 +98,7 @@ CREATE TABLE [dbo].[Recipe_header] (
     [Quantity_of_portions] nvarchar(max)  NOT NULL,
     [Prepare_time] nvarchar(max)  NOT NULL,
     [Description_of_prepare] nvarchar(max)  NOT NULL,
-    [Id_Categories] int IDENTITY(1,1) NOT NULL,
+    [Id_Categories] int  NOT NULL,
     [Create_by] int  NOT NULL
 );
 GO
@@ -92,9 +107,9 @@ GO
 CREATE TABLE [dbo].[Recipe_components] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Quantity] nvarchar(max)  NOT NULL,
-    [Id_recipe] int IDENTITY(1,1) NOT NULL,
-    [Id_component] int IDENTITY(1,1) NOT NULL,
-    [Id_unit] int IDENTITY(1,1) NOT NULL,
+    [Id_recipe] int  NOT NULL,
+    [Id_component] int  NOT NULL,
+    [Id_unit] int  NOT NULL,
     [Description] nvarchar(max)  NOT NULL
 );
 GO

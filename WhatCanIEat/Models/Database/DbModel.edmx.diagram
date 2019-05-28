@@ -5,20 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6d5119b0588348bb998c74ccf56a4e88" Name="Diagram1" >
-        <EntityTypeShape EntityType="DbModel.Components" Width="1.5" PointX="8.25" PointY="0.5" />
-        <EntityTypeShape EntityType="DbModel.Units_of_measure" Width="1.5" PointX="10.625" PointY="0.625" />
+        <EntityTypeShape EntityType="DbModel.Components" Width="1.5" PointX="7.25" PointY="0.5" />
+        <EntityTypeShape EntityType="DbModel.Units_of_measure" Width="1.5" PointX="6.375" PointY="4.875" />
         <EntityTypeShape EntityType="DbModel.Recipe_header" Width="1.5" PointX="3.125" PointY="0.5" />
-        <EntityTypeShape EntityType="DbModel.Recipe_components" Width="1.5" PointX="6" PointY="0.5" />
+        <EntityTypeShape EntityType="DbModel.Recipe_components" Width="1.5" PointX="5.125" PointY="0.5" />
         <AssociationConnector Association="DbModel.Recipe_headerRecipe_components" />
         <AssociationConnector Association="DbModel.Recipe_componentsComponents" />
         <AssociationConnector Association="DbModel.Units_of_measureRecipe_components" />
         <EntityTypeShape EntityType="DbModel.Users" Width="1.5" PointX="0.625" PointY="0.5" />
-        <EntityTypeShape EntityType="DbModel.Categories" Width="1.5" PointX="5.125" PointY="4.875" />
+        <EntityTypeShape EntityType="DbModel.Categories" Width="1.5" PointX="4.625" PointY="4.875" />
         <AssociationConnector Association="DbModel.Recipe_headerCategories" />
         <AssociationConnector Association="DbModel.UsersRecipe_header" />
-        <EntityTypeShape EntityType="DbModel.Permission" Width="1.5" PointX="0.5" PointY="6.25" />
+        <EntityTypeShape EntityType="DbModel.Permission" Width="1.5" PointX="0.5" PointY="5.25" />
         <AssociationConnector Association="DbModel.PermissionUsers" />
-        <EntityTypeShape EntityType="DbModel.Comments" Width="1.5" PointX="2.5" PointY="5.5" />
+        <EntityTypeShape EntityType="DbModel.Comments" Width="1.5" PointX="2.75" PointY="4.875" />
         <AssociationConnector Association="DbModel.CommentsRecipe_header" />
         <AssociationConnector Association="DbModel.UsersComments" />
       </Diagram>

@@ -72,7 +72,7 @@
     <Property Name="Quantity_of_portions" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Prepare_time" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description_of_prepare" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Id_Categories" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Categories" Type="int" StoreGeneratedPattern="Computed" Nullable="false" />
     <Property Name="Create_by" Type="int" StoreGeneratedPattern="Computed" Nullable="false" />
   </EntityType>
   <EntityType Name="Recipe_components">
@@ -81,9 +81,9 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Quantity" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Id_recipe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Id_component" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Id_unit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_recipe" Type="int" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="Id_component" Type="int" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="Id_unit" Type="int" StoreGeneratedPattern="Computed" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
@@ -291,7 +291,7 @@
           <Property Name="Prepare_time" Type="String" Nullable="false" />
           <Property Name="Description_of_prepare" Type="String" Nullable="false" />
           <NavigationProperty Name="Recipe_components" Relationship="DbModel.Recipe_headerRecipe_components" FromRole="Recipe_header" ToRole="Recipe_components" />
-          <Property Name="Id_Categories" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Categories" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Categories" Relationship="DbModel.Recipe_headerCategories" FromRole="Recipe_header" ToRole="Categories" />
           <NavigationProperty Name="Users" Relationship="DbModel.UsersRecipe_header" FromRole="Recipe_header" ToRole="Users" />
           <Property Name="Create_by" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
@@ -303,9 +303,9 @@
           </Key>
           <Property Name="Id" Type="Int32" annotation:StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Quantity" Type="String" Nullable="false" />
-          <Property Name="Id_recipe" Type="Int32" annotation:StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Id_component" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_unit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_recipe" Type="Int32" annotation:StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Id_component" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Id_unit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Recipe_header" Relationship="DbModel.Recipe_headerRecipe_components" FromRole="Recipe_components" ToRole="Recipe_header" />
           <NavigationProperty Name="Components" Relationship="DbModel.Recipe_componentsComponents" FromRole="Recipe_components" ToRole="Components" />
           <NavigationProperty Name="Units_of_measure" Relationship="DbModel.Units_of_measureRecipe_components" FromRole="Recipe_components" ToRole="Units_of_measure" />

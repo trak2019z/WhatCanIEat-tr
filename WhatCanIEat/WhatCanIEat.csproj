@@ -129,6 +129,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ReciptsController.cs" />
+    <Compile Include="Controllers\RegistarionController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UnitsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -237,6 +238,7 @@
     <Content Include="Views\Units\Index.cshtml" />
     <Content Include="Views\Recipts\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Registarion\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
