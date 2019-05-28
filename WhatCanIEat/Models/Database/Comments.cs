@@ -12,17 +12,15 @@ namespace WhatCanIEat.Models.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Recipe_components
+    public partial class Comments
     {
         public int Id { get; set; }
-        public string Quantity { get; set; }
-        public int Id_recipe { get; set; }
-        public int Id_component { get; set; }
-        public int Id_unit { get; set; }
-        public string Description { get; set; }
+        public string Title { get; set; }
+        public string Comment { get; set; }
+        public int Create_by { get; set; }
+        public int Recipe_id { get; set; }
     
         public virtual Recipe_header Recipe_header { get; set; }
-        public virtual Components Components { get; set; }
-        public virtual Units_of_measure Units_of_measure { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

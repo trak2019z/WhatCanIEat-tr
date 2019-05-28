@@ -137,6 +137,9 @@
     <Compile Include="Models\Database\Categories.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Database\Comments.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Database\Components.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -154,6 +157,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DbModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Database\Permission.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Database\PermissionEnum.cs">
       <DependentUpon>DbModel.tt</DependentUpon>

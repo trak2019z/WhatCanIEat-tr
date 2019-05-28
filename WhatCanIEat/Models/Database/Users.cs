@@ -14,9 +14,20 @@ namespace WhatCanIEat.Models.Database
     
     public partial class Users
     {
+        public Users()
+        {
+            this.Recipe_header = new HashSet<Recipe_header>();
+            this.Comments = new HashSet<Comments>();
+        }
+    
         public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
+        public int Permision { get; set; }
+    
+        public virtual ICollection<Recipe_header> Recipe_header { get; set; }
+        public virtual Permission Permission { get; set; }
+        public virtual ICollection<Comments> Comments { get; set; }
     }
 }
