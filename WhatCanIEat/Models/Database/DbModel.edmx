@@ -6,37 +6,55 @@
     <edmx:StorageModels>
     <Schema Namespace="DbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="DbModelStoreContainer">
-    <EntitySet Name="ComponentsSet" EntityType="DbModel.Store.ComponentsSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Units_of_measureSet" EntityType="DbModel.Store.Units_of_measureSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Recipe_headerSet" EntityType="DbModel.Store.Recipe_headerSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Recipe_componentsSet" EntityType="DbModel.Store.Recipe_componentsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Components" EntityType="DbModel.Store.Components" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Units_of_measure" EntityType="DbModel.Store.Units_of_measure" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Recipe_header" EntityType="DbModel.Store.Recipe_header" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Recipe_components" EntityType="DbModel.Store.Recipe_components" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="DbModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Categories" EntityType="DbModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Permission" EntityType="DbModel.Store.Permission" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comments" EntityType="DbModel.Store.Comments" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="Recipe_headerRecipe_components" Association="DbModel.Store.Recipe_headerRecipe_components">
-      <End Role="Recipe_header" EntitySet="Recipe_headerSet" />
-      <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+      <End Role="Recipe_header" EntitySet="Recipe_header" />
+      <End Role="Recipe_components" EntitySet="Recipe_components" />
     </AssociationSet>
     <AssociationSet Name="Recipe_componentsComponents" Association="DbModel.Store.Recipe_componentsComponents">
-      <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
-      <End Role="Components" EntitySet="ComponentsSet" />
+      <End Role="Recipe_components" EntitySet="Recipe_components" />
+      <End Role="Components" EntitySet="Components" />
     </AssociationSet>
     <AssociationSet Name="Units_of_measureRecipe_components" Association="DbModel.Store.Units_of_measureRecipe_components">
-      <End Role="Units_of_measure" EntitySet="Units_of_measureSet" />
-      <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+      <End Role="Units_of_measure" EntitySet="Units_of_measure" />
+      <End Role="Recipe_components" EntitySet="Recipe_components" />
     </AssociationSet>
     <AssociationSet Name="Recipe_headerCategories" Association="DbModel.Store.Recipe_headerCategories">
-      <End Role="Recipe_header" EntitySet="Recipe_headerSet" />
+      <End Role="Recipe_header" EntitySet="Recipe_header" />
       <End Role="Categories" EntitySet="Categories" />
     </AssociationSet>
+    <AssociationSet Name="UsersRecipe_header" Association="DbModel.Store.UsersRecipe_header">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Recipe_header" EntitySet="Recipe_header" />
+    </AssociationSet>
+    <AssociationSet Name="PermissionUsers" Association="DbModel.Store.PermissionUsers">
+      <End Role="Permission" EntitySet="Permission" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="CommentsRecipe_header" Association="DbModel.Store.CommentsRecipe_header">
+      <End Role="Comments" EntitySet="Comments" />
+      <End Role="Recipe_header" EntitySet="Recipe_header" />
+    </AssociationSet>
+    <AssociationSet Name="UsersComments" Association="DbModel.Store.UsersComments">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="ComponentsSet">
+  <EntityType Name="Components">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
-  <EntityType Name="Units_of_measureSet">
+  <EntityType Name="Units_of_measure">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -44,7 +62,7 @@
     <Property Name="Full_name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Short_name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="Recipe_headerSet">
+  <EntityType Name="Recipe_header">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -54,9 +72,10 @@
     <Property Name="Quantity_of_portions" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Prepare_time" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description_of_prepare" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IdCategories" Type="int" Nullable="false" />
+    <Property Name="Id_Categories" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Create_by" Type="int" StoreGeneratedPattern="Computed" Nullable="false" />
   </EntityType>
-  <EntityType Name="Recipe_componentsSet">
+  <EntityType Name="Recipe_components">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -65,6 +84,7 @@
     <Property Name="Id_recipe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Id_component" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Id_unit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -74,6 +94,7 @@
     <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Permision" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Categories">
     <Key>
@@ -82,9 +103,27 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Group" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Create_by" Type="int" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="Recipe_id" Type="int" StoreGeneratedPattern="Computed" Nullable="false" />
+  </EntityType>
   <Association Name="Recipe_headerRecipe_components">
-    <End Role="Recipe_header" Type="DbModel.Store.Recipe_headerSet" Multiplicity="1" />
-    <End Role="Recipe_components" Type="DbModel.Store.Recipe_componentsSet" Multiplicity="*" />
+    <End Role="Recipe_header" Type="DbModel.Store.Recipe_header" Multiplicity="1" />
+    <End Role="Recipe_components" Type="DbModel.Store.Recipe_components" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Recipe_header">
         <PropertyRef Name="Id" />
@@ -95,8 +134,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="Recipe_componentsComponents">
-    <End Role="Recipe_components" Type="DbModel.Store.Recipe_componentsSet" Multiplicity="*" />
-    <End Role="Components" Type="DbModel.Store.ComponentsSet" Multiplicity="1" />
+    <End Role="Recipe_components" Type="DbModel.Store.Recipe_components" Multiplicity="*" />
+    <End Role="Components" Type="DbModel.Store.Components" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Components">
         <PropertyRef Name="Id" />
@@ -107,8 +146,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="Units_of_measureRecipe_components">
-    <End Role="Units_of_measure" Type="DbModel.Store.Units_of_measureSet" Multiplicity="1" />
-    <End Role="Recipe_components" Type="DbModel.Store.Recipe_componentsSet" Multiplicity="*" />
+    <End Role="Units_of_measure" Type="DbModel.Store.Units_of_measure" Multiplicity="1" />
+    <End Role="Recipe_components" Type="DbModel.Store.Recipe_components" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Units_of_measure">
         <PropertyRef Name="Id" />
@@ -119,14 +158,62 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="Recipe_headerCategories">
-    <End Role="Recipe_header" Type="DbModel.Store.Recipe_headerSet" Multiplicity="*" />
+    <End Role="Recipe_header" Type="DbModel.Store.Recipe_header" Multiplicity="*" />
     <End Role="Categories" Type="DbModel.Store.Categories" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Categories">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Recipe_header">
-        <PropertyRef Name="IdCategories" />
+        <PropertyRef Name="Id_Categories" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersRecipe_header">
+    <End Role="Users" Type="DbModel.Store.Users" Multiplicity="1" />
+    <End Role="Recipe_header" Type="DbModel.Store.Recipe_header" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Recipe_header">
+        <PropertyRef Name="Create_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PermissionUsers">
+    <End Role="Permission" Type="DbModel.Store.Permission" Multiplicity="1" />
+    <End Role="Users" Type="DbModel.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="Permision" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommentsRecipe_header">
+    <End Role="Comments" Type="DbModel.Store.Comments" Multiplicity="*" />
+    <End Role="Recipe_header" Type="DbModel.Store.Recipe_header" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Recipe_header">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="Recipe_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersComments">
+    <End Role="Users" Type="DbModel.Store.Users" Multiplicity="1" />
+    <End Role="Comments" Type="DbModel.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="Create_by" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -135,27 +222,45 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="DbModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ComponentsSet" EntityType="DbModel.Components" />
-          <EntitySet Name="Units_of_measureSet" EntityType="DbModel.Units_of_measure" />
-          <EntitySet Name="Recipe_headerSet" EntityType="DbModel.Recipe_header" />
-          <EntitySet Name="Recipe_componentsSet" EntityType="DbModel.Recipe_components" />
+          <EntitySet Name="Components" EntityType="DbModel.Components" />
+          <EntitySet Name="Units_of_measure" EntityType="DbModel.Units_of_measure" />
+          <EntitySet Name="Recipe_header" EntityType="DbModel.Recipe_header" />
+          <EntitySet Name="Recipe_components" EntityType="DbModel.Recipe_components" />
           <AssociationSet Name="Recipe_headerRecipe_components" Association="DbModel.Recipe_headerRecipe_components">
-            <End Role="Recipe_header" EntitySet="Recipe_headerSet" />
-            <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+            <End Role="Recipe_header" EntitySet="Recipe_header" />
+            <End Role="Recipe_components" EntitySet="Recipe_components" />
           </AssociationSet>
           <AssociationSet Name="Recipe_componentsComponents" Association="DbModel.Recipe_componentsComponents">
-            <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
-            <End Role="Components" EntitySet="ComponentsSet" />
+            <End Role="Recipe_components" EntitySet="Recipe_components" />
+            <End Role="Components" EntitySet="Components" />
           </AssociationSet>
           <AssociationSet Name="Units_of_measureRecipe_components" Association="DbModel.Units_of_measureRecipe_components">
-            <End Role="Units_of_measure" EntitySet="Units_of_measureSet" />
-            <End Role="Recipe_components" EntitySet="Recipe_componentsSet" />
+            <End Role="Units_of_measure" EntitySet="Units_of_measure" />
+            <End Role="Recipe_components" EntitySet="Recipe_components" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="DbModel.Users" />
           <EntitySet Name="Categories" EntityType="DbModel.Categories" />
           <AssociationSet Name="Recipe_headerCategories" Association="DbModel.Recipe_headerCategories">
-            <End Role="Recipe_header" EntitySet="Recipe_headerSet" />
+            <End Role="Recipe_header" EntitySet="Recipe_header" />
             <End Role="Categories" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="UsersRecipe_header" Association="DbModel.UsersRecipe_header">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Recipe_header" EntitySet="Recipe_header" />
+          </AssociationSet>
+          <EntitySet Name="Permission" EntityType="DbModel.Permission" />
+          <AssociationSet Name="PermissionUsers" Association="DbModel.PermissionUsers">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Comments" EntityType="DbModel.Comments" />
+          <AssociationSet Name="CommentsRecipe_header" Association="DbModel.CommentsRecipe_header">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="Recipe_header" EntitySet="Recipe_header" />
+          </AssociationSet>
+          <AssociationSet Name="UsersComments" Association="DbModel.UsersComments">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Components">
@@ -186,8 +291,11 @@
           <Property Name="Prepare_time" Type="String" Nullable="false" />
           <Property Name="Description_of_prepare" Type="String" Nullable="false" />
           <NavigationProperty Name="Recipe_components" Relationship="DbModel.Recipe_headerRecipe_components" FromRole="Recipe_header" ToRole="Recipe_components" />
-          <Property Name="IdCategories" Type="Int32" Nullable="false" />
+          <Property Name="Id_Categories" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Categories" Relationship="DbModel.Recipe_headerCategories" FromRole="Recipe_header" ToRole="Categories" />
+          <NavigationProperty Name="Users" Relationship="DbModel.UsersRecipe_header" FromRole="Recipe_header" ToRole="Users" />
+          <Property Name="Create_by" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Comments" Relationship="DbModel.CommentsRecipe_header" FromRole="Recipe_header" ToRole="Comments" />
         </EntityType>
         <EntityType Name="Recipe_components">
           <Key>
@@ -201,6 +309,7 @@
           <NavigationProperty Name="Recipe_header" Relationship="DbModel.Recipe_headerRecipe_components" FromRole="Recipe_components" ToRole="Recipe_header" />
           <NavigationProperty Name="Components" Relationship="DbModel.Recipe_componentsComponents" FromRole="Recipe_components" ToRole="Components" />
           <NavigationProperty Name="Units_of_measure" Relationship="DbModel.Units_of_measureRecipe_components" FromRole="Recipe_components" ToRole="Units_of_measure" />
+          <Property Name="Description" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="Recipe_headerRecipe_components">
           <End Type="DbModel.Recipe_header" Role="Recipe_header" Multiplicity="1" />
@@ -246,6 +355,10 @@
           <Property Name="Login" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Recipe_header" Relationship="DbModel.UsersRecipe_header" FromRole="Users" ToRole="Recipe_header" />
+          <NavigationProperty Name="Permission" Relationship="DbModel.PermissionUsers" FromRole="Users" ToRole="Permission" />
+          <Property Name="Permision" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="DbModel.UsersComments" FromRole="Users" ToRole="Comments" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -263,7 +376,81 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Recipe_header">
-              <PropertyRef Name="IdCategories" />
+              <PropertyRef Name="Id_Categories" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="PermissionEnum">
+          <Member Name="No_logged_user" Value="0" />
+          <Member Name="Logged_user" Value="1" />
+          <Member Name="Admin" Value="2" />
+        </EnumType>
+        <Association Name="UsersRecipe_header">
+          <End Type="DbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="DbModel.Recipe_header" Role="Recipe_header" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recipe_header">
+              <PropertyRef Name="Create_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Group" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="DbModel.PermissionUsers" FromRole="Permission" ToRole="Users" />
+        </EntityType>
+        <Association Name="PermissionUsers">
+          <End Type="DbModel.Permission" Role="Permission" Multiplicity="1" />
+          <End Type="DbModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Permision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" />
+          <Property Name="Create_by" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Recipe_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Recipe_header" Relationship="DbModel.CommentsRecipe_header" FromRole="Comments" ToRole="Recipe_header" />
+          <NavigationProperty Name="Users" Relationship="DbModel.UsersComments" FromRole="Comments" ToRole="Users" />
+        </EntityType>
+        <Association Name="CommentsRecipe_header">
+          <End Type="DbModel.Comments" Role="Comments" Multiplicity="*" />
+          <End Type="DbModel.Recipe_header" Role="Recipe_header" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe_header">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="Recipe_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsersComments">
+          <End Type="DbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="DbModel.Comments" Role="Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="Create_by" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -273,44 +460,46 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DbModelContainer">
-    <EntitySetMapping Name="ComponentsSet">
+    <EntitySetMapping Name="Components">
       <EntityTypeMapping TypeName="IsTypeOf(DbModel.Components)">
-        <MappingFragment StoreEntitySet="ComponentsSet">
+        <MappingFragment StoreEntitySet="Components">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Units_of_measureSet">
+    <EntitySetMapping Name="Units_of_measure">
       <EntityTypeMapping TypeName="IsTypeOf(DbModel.Units_of_measure)">
-        <MappingFragment StoreEntitySet="Units_of_measureSet">
+        <MappingFragment StoreEntitySet="Units_of_measure">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Full_name" ColumnName="Full_name" />
           <ScalarProperty Name="Short_name" ColumnName="Short_name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Recipe_headerSet">
+    <EntitySetMapping Name="Recipe_header">
       <EntityTypeMapping TypeName="IsTypeOf(DbModel.Recipe_header)">
-        <MappingFragment StoreEntitySet="Recipe_headerSet">
+        <MappingFragment StoreEntitySet="Recipe_header">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Quantity_of_portions" ColumnName="Quantity_of_portions" />
           <ScalarProperty Name="Prepare_time" ColumnName="Prepare_time" />
           <ScalarProperty Name="Description_of_prepare" ColumnName="Description_of_prepare" />
-          <ScalarProperty Name="IdCategories" ColumnName="IdCategories" />
+          <ScalarProperty Name="Id_Categories" ColumnName="Id_Categories" />
+          <ScalarProperty Name="Create_by" ColumnName="Create_by" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Recipe_componentsSet">
+    <EntitySetMapping Name="Recipe_components">
       <EntityTypeMapping TypeName="IsTypeOf(DbModel.Recipe_components)">
-        <MappingFragment StoreEntitySet="Recipe_componentsSet">
+        <MappingFragment StoreEntitySet="Recipe_components">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="Id_recipe" ColumnName="Id_recipe" />
           <ScalarProperty Name="Id_component" ColumnName="Id_component" />
           <ScalarProperty Name="Id_unit" ColumnName="Id_unit" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -321,6 +510,7 @@
           <ScalarProperty Name="Login" ColumnName="Login" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Permision" ColumnName="Permision" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -329,6 +519,26 @@
         <MappingFragment StoreEntitySet="Categories">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permission">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Permission)">
+        <MappingFragment StoreEntitySet="Permission">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Group" ColumnName="Group" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Comments)">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Create_by" ColumnName="Create_by" />
+          <ScalarProperty Name="Recipe_id" ColumnName="Recipe_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

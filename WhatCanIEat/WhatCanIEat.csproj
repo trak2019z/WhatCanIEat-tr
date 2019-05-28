@@ -155,6 +155,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Database\PermissionEnum.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Database\Recipe_components.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
