@@ -6,27 +6,27 @@ using System.Web.Mvc;
 
 namespace WhatCanIEat.Controllers
 {
-    public class RegistarionController : Controller
+    public class LoginController : Controller
     {
-        // GET: Registarion
-        public ActionResult Registration()
+        // GET: Login
+        public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Registarion/Details/5
+        // GET: Login/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Registarion/Create
+        // GET: Login/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Registarion/Create
+        // POST: Login/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -34,7 +34,7 @@ namespace WhatCanIEat.Controllers
             {
                 // TODO: Add insert logic here
 
-                return RedirectToAction("Registration");
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -42,13 +42,13 @@ namespace WhatCanIEat.Controllers
             }
         }
 
-        // GET: Registarion/Edit/5
+        // GET: Login/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Registarion/Edit/5
+        // POST: Login/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -56,7 +56,7 @@ namespace WhatCanIEat.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Registration");
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -64,13 +64,13 @@ namespace WhatCanIEat.Controllers
             }
         }
 
-        // GET: Registarion/Delete/5
+        // GET: Login/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Registarion/Delete/5
+        // POST: Login/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -78,7 +78,7 @@ namespace WhatCanIEat.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction("Registration");
+                return RedirectToAction("Index");
             }
             catch
             {

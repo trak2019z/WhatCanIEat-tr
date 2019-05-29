@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Zaloguj</h2>
+
+<table style="width:100%;">
+    <tr><td>Login</td><td><input id="Login" type="text" /></td></tr>
+
+    <tr><td>Hasło</td><td><input id="Password" type="password" /></td></tr>
+</table>
+
+@Html.ActionLink("Zaloguj", "Login", new { }, new { @class = "btn btn-primary", id = "btnCheckout" })

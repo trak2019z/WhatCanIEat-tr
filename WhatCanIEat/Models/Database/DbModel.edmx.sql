@@ -325,6 +325,12 @@ ON [dbo].[Comments]
     ([Create_by]);
 GO
 
+
+-- Tworzenie uprawnieñ
+insert into [Permission] ([Name], [Group]) values  ('Administrator', 1)
+insert into [Permission] ([Name], [Group]) values  ('Zalogowany', 2)
+insert into [Permission] ([Name], [Group]) values  ('Nie zalogowany', 3)
+GO
 -- --------------------------------------------------
 -- Script has ended
 -- --------------------------------------------------
